@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 router.get('/another', (req, res) => res.json({ route: req.originalUrl }));
 router.post('/', (req, res) => res.json({ postBody: req.body }));
-router.post('x`', (req, res) => location(req, res));
+router.post('/getLocation', (req, res) => location(req, res));
 app.use(bodyParser.json());
 
 function location(req, res) {
