@@ -5,7 +5,9 @@ const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
 const axios = require('axios')
+var cors = require('cors');
 const router = express.Router();
+app.use(cors());
 router.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.write('<h1>Hello from Express.js!</h1>');
@@ -18,11 +20,9 @@ app.use(bodyParser.json());
 
 function location(req, res) {
   console.log("dsaasdsdadsa", req.body)
-  const options = {
-    method: 'GET', 
-    url: `http://api.positionstack.com/v1/reverse?access_key=714f37a94f12ed154c1589c14619657a&query=${req.body.lat},${req.body.lng}`
-  };
-  axios.get(`http://api.positionstack.com/v1/reverse?access_key=714f37a94f12ed154c1589c14619657a&query=${req.body.lat},${req.body.lng}`)
+  let data= req.body
+
+  axios.get(`http://api.positionstack.com/v1/reverse?access_key=714f37a94f12ed154c1589c14619657a&query=${data.lat},${data.lng}`)
     .then(response => {
       console.log("error", response)
       return res.status(200).send({ message: response.data})
